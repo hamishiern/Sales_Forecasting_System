@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        nav .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: #ffffffcc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            color: #fff;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(106, 125, 186, 0.2);  /* Light transparent white */
+            border-radius: 12px;
+            padding: 30px;
+            backdrop-filter: blur(15px);          /* Blurs whatever is behind the element */
+            -webkit-backdrop-filter: blur(15px);  /* For Safari support */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+
+        h2 {
+            font-weight: 600;
+        }
+
+        canvas {
+            margin-top: 30px;
+        }
+
+        .btn-custom{
+            background: linear-gradient(135deg, #3d3992, #7e6bd1);
+            color: white;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #151630, #2b2f5a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="d-flex justify-content-between align-items-center">
+    <div class="logo">BigMart Dashboard</div>
+    <ul class="d-flex">
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/predict">Predict Sales</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="dashboard-card">
+        <h2 class="mb-4">Add New Record</h2>
+        <form action="/add_record" method="POST" class="row g-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Item Type</label>
+                <input type="text" name="item_type" class="form-control" required>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Item MRP</label>
+                <input type="number" step="0.01" name="item_mrp" class="form-control" required>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Establishment Year</label>
+                <input type="number" name="outlet_establishment_year" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Outlet Type</label>
+                <input type="text" name="outlet_type" class="form-control" required>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn-custom">Submit & Predict</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="dashboard-card mt-5">
+        <h2 class="mb-4">Forecasting Trends</h2>
+        <canvas id="salesChart"></canvas>
+    </div>
+
+    
+</div>
+
+<script>
+
+    const labels = JSON.parse('{{ predictions | map(attribute="Item_Type") | list | tojson | safe }}');
+    const predictedSales = JSON.parse('{{ predictions | map(attribute="Predicted_Sales") | list | tojson | safe }}');
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Predicted Sales',
+            data: predictedSales,
+            backgroundColor: 'rgba(61, 57, 146, 0.3)',
+            borderColor: 'rgb(126, 107, 209)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.3
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: {
+                color: 'white'  // Label color
+              }
+            }
+          },
+          
+    scales: {
+        x: {
+            ticks: {
+                color: 'white'  // X-axis tick color
+            },
+            grid: {
+                color: 'rgba(255, 255, 255, 0.1)'  // Optional grid line color
+            }
+        },
+        y: {
+            beginAtZero: false,
+            ticks: {
+                color: 'white'  // Y-axis tick color
+            },
+            grid: {
+                color: 'rgba(255, 255, 255, 0.1)'  // Optional grid line color
+            }
+        }
+    }
+}
+
+    };
+
+
+    new Chart(document.getElementById('salesChart'), config);
+</script>
+
+</body>
+</html>
