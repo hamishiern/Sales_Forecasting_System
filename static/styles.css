@@ -1,0 +1,291 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    color: white;
+    text-align: center;
+    background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+
+      
+}
+
+#animated-bg {
+    position: fixed;
+    width: 100%;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    /*pointer-events: none;*/
+    height: 100vh; /* Ensures Vanta background covers full viewport */
+    }
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffff;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+}
+
+ul li {
+    margin: 0 20px;
+}
+
+ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.hero {
+    margin-top: 15%;
+}
+
+.hero h1 {
+    font-size: 40px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #ff416c;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #ff4b2b;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #ff4757;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+button:hover {
+    background-color: #e84118;
+}
+
+.container .form-label{
+    color: #ffff;
+}
+
+.container .text-center{
+    color: #ffff;
+}
+
+/* Chatbot Styling */
+#chatToggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #3d3992;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.chatbot {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    width: 300px;
+    height: 400px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.chat-header {
+    background-color: #3d3992;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+    background: black;
+    height: 100vh;
+}
+
+.typing-indicator {
+    background-color: black;
+}
+
+.chat-body div {
+    margin-bottom: 10px;
+}
+
+.bot-message {
+    background-color: rgba(61, 57, 146, 0.4);
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.user-message {
+    background-color: #414458;
+    padding: 8px;
+    border-radius: 3px;
+    text-align: right;
+}
+
+#userInput {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0;
+  margin-bottom: 0;
+ 
+}
+
+.typing-indicator{
+    color: #9f98df;
+}
+
+.hero {
+  margin-top: 15%;
+  transition: transform 0.3s ease;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  z-index: 1;
+  padding-bottom: 500px; /* gives space for fade */
+  overflow: hidden;
+  background: transparent;
+}
+
+.hero:hover {
+    transform: scale(1.05);
+}
+  
+.hero h1, .hero p {
+    text-shadow: 0 0 10px #6c63ff, 0 0 20px #8a82ff;
+  }
+  
+  .btn {
+    background: linear-gradient(135deg, #3d3992, #7e6bd1);
+
+    color: white;
+    /*box-shadow: 0 0 10px #6c63ff, 0 0 20px #8a82ff;*/
+  }
+  
+  .btn:hover {
+    background-color: #ffffff;
+    box-shadow: 0 0 20px #f3f2fa, 0 0 30px #6c63ff;
+    color: #3d3992;
+  }
+  
+  nav {
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+  
+  /* Animate elements */
+  [data-aos] {
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-duration: 1s;
+  }
+
+  section.hero {
+    background: transparent;
+  }
+
+
+  #animated-bg::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 200px; /* adjust as needed */
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(15, 12, 41, 0) 0%, rgba(15, 12, 41, 1) 100%);
+    /*pointer-events: none;*/
+    z-index: 0;
+    
+  }
+
+  .next-section {
+    background-color: #0f0c29;
+  }
+
+  .hero-section {
+    position: relative;
+    z-index: 1; /* ensures it's above the Vanta background */
+    height: 100vh; /* full screen height */
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically */
+    text-align: center;
+    padding: 20px;
+    color: white; /* optional: white text for contrast */
+  }
+  
+  
+  
+  
